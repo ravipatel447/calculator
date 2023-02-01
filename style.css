@@ -29,6 +29,15 @@ body{
     grid-row: 1/6;
     grid-column: 1/6;
 }
+.bottom-part{
+    background-color: transparent;
+    grid-gap: 3px;
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    grid-template-rows: 5;
+    grid-row: 6/12;
+    grid-column: 1/6;
+}
 .item{
     font-size: 1.1em;
     font-weight: 200;
