@@ -1,47 +1,76 @@
-// const zero = document.querySelector('.zero');
-// const one = document.querySelector('.one');
-// const two = document.querySelector('.two');
-// const three = document.querySelector('.three');
-// const four = document.querySelector('.four');
-// const five = document.querySelector('.five');
-// const six = document.querySelector('.six');
-// const seven = document.querySelector('.seven');
-// const eight = document.querySelector('.eight');
-// const nine = document.querySelector('.nine');
-// const division = document.querySelector('.division');
-// const multi = document.querySelector('.multi');
-// const sum = document.querySelector('.sum');
-// const sub = document.querySelector('.sub');
-// const parenLeft = document.querySelector('.parenLeft');
-// const parenRight = document.querySelector('.parenRight');
-const equal = document.querySelector('.equal');
-const display = document.getElementById('display');
-const bottomPart = document.querySelector('.bottom-part');
-const clear = document.querySelector('.clear');
-let string  = '';
-const updateDisplay = (str)=>{
-    // let screen = str.replaceAll('*','×').replaceAll('/','÷');
-    display.textContent = str==''? '0': str;
-}
-bottomPart.addEventListener('click',function(e){
-    if(e.target.classList.contains('evalAble')){
-        string += e.target.value;
-        updateDisplay(string);
-    }
-})
-
-clear.addEventListener('click',function(){
-    string = '';
+const equal = document.querySelector(".equal");
+const display = document.getElementById("display");
+const bottomPart = document.querySelector(".bottom-part");
+const clear = document.querySelector(".clear");
+let string = "";
+const updateDisplay = (str) => {
+  let screen = str
+    .toString()
+    .replaceAll("**", "^")
+    .replaceAll("*", "×")
+    .replaceAll("/", "÷");
+  display.textContent = str == "" ? "0" : screen;
+};
+bottomPart.addEventListener("click", function (e) {
+  if (e.target.classList.contains("evalAble")) {
+    string += e.target.value;
     updateDisplay(string);
-})
+  } else if (e.target.closest(".backspace")) {
+    string = string.toString().slice(0, -1);
+    updateDisplay(string);
+  } else if (e.target.classList.contains("pi")) {
+    string = Math.PI;
+    updateDisplay(string);
+  } else if (e.target.classList.contains("EConst")) {
+    string === "" ? (string = Math.E) : (string = `(${eval(string) * Math.E})`);
+    updateDisplay(string);
+  } else if (e.target.classList.contains("invert")) {
+    string !== "" ? (string = eval(`-(${string})`)) : "";
+    updateDisplay(string);
+  } else if (e.target.classList.contains("modulo")) {
+    string !== "" ? (string = "(" + eval(`(${string})`) + ")%") : "";
+    updateDisplay(string);
+  } else if (e.target.closest(".square")) {
+    string !== "" ? (string = eval(`(${string})**2`)) : "";
+    updateDisplay(string);
+  } else if (e.target.classList.contains("squareRoot")) {
+    string !== "" ? (string = eval(`Math.sqrt((${string}))`)) : "";
+    updateDisplay(string);
+  } else if (e.target.closest(".power")) {
+    string !== "" ? (string = "(" + eval(`(${string})`) + ")**") : "";
+    updateDisplay(string);
+  } else if (e.target.closest(".tenPower")) {
+    string !== "" ? (string = eval(`10**(${string})`)) : "";
+    updateDisplay(string);
+  } else if (e.target.classList.contains("log10")) {
+    string !== "" ? (string = eval(`Math.log10(${string})`)) : "";
+    updateDisplay(string);
+  } else if (e.target.classList.contains("log")) {
+    string !== "" ? (string = eval(`Math.log(${string})`)) : "";
+    updateDisplay(string);
+  } else if (e.target.classList.contains("OneUponX")) {
+    string !== "" ? (string = eval(`1/(${string})`)) : "";
+    updateDisplay(string);
+  } else if (e.target.classList.contains("modeX")) {
+    string !== "" ? (string = eval(`Math.abs(${string})`)) : "";
+    updateDisplay(string);
+  }
+});
 
-equal.addEventListener('click',function(){
-    try{
-        string = eval(string);
-        updateDisplay(string);
-    }
-    catch(err){
-        // updateDisplay("Unexpected Expression")
-        console.log(err.message)
-    }
-})
+clear.addEventListener("click", function () {
+  string = "";
+  updateDisplay(string);
+});
+
+equal.addEventListener("click", function () {
+  try {
+    string = eval(string);
+    updateDisplay(string);
+  } catch (err) {
+    updateDisplay("Unexpected Expression");
+    setTimeout(() => {
+      updateDisplay(string);
+    }, 1500);
+    console.log(err.message);
+  }
+});
