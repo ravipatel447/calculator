@@ -23,33 +23,78 @@
           <button class="top-item">M+</button>
           <button class="top-item">M-</button>
           <button class="top-item">MS</button>
-          <button class="top-item" id="trignomatry">Trignomatry <img src="./assets/expand.svg" style="height: 14px;"/>
-          </button>
-              <div class="drop-down trig active">
-                <button class="dropdown-item"><div>2<sup>nd</sup></div></button>
-                <button class="dropdown-item">sin</button>
-                <button class="dropdown-item">cos</button>
-                <button class="dropdown-item">tan</button>
-                <button class="dropdown-item">hyp</button>
-                <button class="dropdown-item">sec</button>
-                <button class="dropdown-item">csc</button>
-                <button class="dropdown-item">cot</button>
-              </div>
-              <button class="top-item" id="functions">Functions  <img src="./assets/expand.svg" style="height: 14px;"/></button>
-              <div class="drop-down fun active">
-                <button class="dropdown-item">
-                    | x |
-                </button>
-                <button class="dropdown-item">
-                    | x |
-                </button>
-                <button class="dropdown-item">
-                    | x |
-                </button>
-                <button class="dropdown-item">rand</button>
-                <button class="dropdown-item"> ->dms</button>
-                <button class="dropdown-item"> ->deg</button>
-              </div>
+          <div class="top-item" id="trignomatry">
+            <img src="./assets/trignometry.svg" style="height: 22px" />
+            &nbsp; Trignomatry &nbsp;
+            <img src="./assets/expand.svg" style="height: 14px" />
+            <div class="drop-down trig">
+              <button class="dropdown-item secondTrig">
+                <div>2<sup>nd</sup></div>
+              </button>
+              <button
+                class="dropdown-item ddt sin"
+                data-2nd="<div>sin<sup>-1</sup></div>"
+                data-hyp="<div>sinh</div>"
+                data-2ndHyp="<div>sinh<sup>-1</sup></div>"
+              >
+                sin
+              </button>
+              <button
+                class="dropdown-item ddt cos"
+                data-2nd="<div>cos<sup>-1</sup></div>"
+                data-hyp="<div>cosh</div>"
+                data-2ndHyp="<div>cosh<sup>-1</sup></div>"
+              >
+                cos
+              </button>
+              <button
+                class="dropdown-item ddt tan"
+                data-2nd="<div>tan<sup>-1</sup></div>"
+                data-hyp="<div>tanh</div>"
+                data-2ndHyp="<div>tanh<sup>-1</sup></div>"
+              >
+                tan
+              </button>
+              <button class="dropdown-item hyp">hyp</button>
+              <button
+                class="dropdown-item ddt sec"
+                data-2nd="<div>sec<sup>-1</sup></div>"
+                data-hyp="<div>sech</div>"
+                data-2ndHyp="<div>sech<sup>-1</sup></div>"
+              >
+                sec
+              </button>
+              <button
+                class="dropdown-item ddt cosec"
+                data-2nd="<div>csc<sup>-1</sup></div>"
+                data-hyp="<div>csch</div>"
+                data-2ndHyp="<div>csch<sup>-1</sup></div>"
+              >
+                csc
+              </button>
+              <button
+                class="dropdown-item ddt cot"
+                data-2nd="<div>cot<sup>-1</sup></div>"
+                data-hyp="<div>coth</div>"
+                data-2ndHyp="<div>coth<sup>-1</sup></div>"
+              >
+                cot
+              </button>
+            </div>
+          </div>
+          <div class="top-item" id="functions">
+            <img src="./assets/functions.svg" style="height: 28px" />
+            &nbsp; Functions&nbsp;
+            <img src="./assets/expand.svg" style="height: 14px" />
+            <div class="drop-down fun">
+              <button class="dropdown-item">| x |</button>
+              <button class="dropdown-item">| x |</button>
+              <button class="dropdown-item">| x |</button>
+              <button class="dropdown-item">rand</button>
+              <button class="dropdown-item">->dms</button>
+              <button class="dropdown-item">->deg</button>
+            </div>
+          </div>
         </div>
         <div class="bottom-part">
           <button class="item">
