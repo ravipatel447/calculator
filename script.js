@@ -9,6 +9,7 @@ const trignomatryDropDown = document.querySelector(".trig");
 const fun = document.querySelector(".fun");
 const trig = document.querySelector(".trig");
 const secTrig = document.querySelector(".secondTrig");
+const hypTrig = document.querySelector(".hyp");
 const ddt = document.querySelectorAll(".ddt");
 // const secTrig = document.getElementsByClassName("2ndTrig");
 // const secFun = document.querySelector(".2nd-fun");
@@ -126,7 +127,23 @@ secTrig.addEventListener("click", () => {
   } else {
     secTrig.classList.add("active-blue");
     ddt.forEach((e) => {
-      e.innerHTML = e.dataset["2nd"];
+      if (e.classList.contains("hyp-version")) {
+        e.classList.remove("hyp-version").ad;
+      } else {
+        e.classList.add("2nd-version");
+        e.innerHTML = e.dataset["2nd"];
+      }
+    });
+  }
+});
+hypTrig.addEventListener("click", () => {
+  if (hypTrig.classList.contains("active-blue")) {
+    hypTrig.classList.remove("active-blue");
+  } else {
+    hypTrig.classList.add("active-blue");
+    ddt.forEach((e) => {
+      e.classList.add("hyp-version");
+      e.innerHTML = e.dataset["hyp"];
     });
   }
 });
