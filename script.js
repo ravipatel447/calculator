@@ -11,6 +11,10 @@ const updateDisplay = (str) => {
     .replaceAll("/", "÷");
   display.textContent = str == "" ? "0" : screen;
 };
+const factorial = function(number){
+    if(number<=1) return 1;
+    return number*factorial(number-1);
+}
 bottomPart.addEventListener("click", function (e) {
   if (e.target.classList.contains("evalAble")) {
     string += e.target.value;
@@ -53,6 +57,11 @@ bottomPart.addEventListener("click", function (e) {
     updateDisplay(string);
   } else if (e.target.classList.contains("modeX")) {
     string !== "" ? (string = eval(`Math.abs(${string})`)) : "";
+    updateDisplay(string);
+  }else if (e.target.classList.contains("EXP")) {
+    updateDisplay((Number(string)).toExponential());
+  }else if (e.target.classList.contains("fact")) {
+    string !== "" ? (string = factorial(eval(`Math.abs(${string})`))) : "";
     updateDisplay(string);
   }
 });
