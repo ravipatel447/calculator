@@ -10,7 +10,9 @@ const fun = document.querySelector(".fun");
 const trig = document.querySelector(".trig");
 const secTrig = document.querySelector(".secondTrig");
 const hypTrig = document.querySelector(".hyp");
-const ddt = document.querySelectorAll(".ddt");
+const ddt = document.querySelectorAll(".drop-down-tringnometry");
+const secondPossible = document.querySelectorAll(".second-possible");
+const second = document.querySelector('.second');
 // const secTrig = document.getElementsByClassName("2ndTrig");
 // const secFun = document.querySelector(".2nd-fun");
 let string = "";
@@ -22,6 +24,25 @@ fun.addEventListener("click", (e) => {
 trig.addEventListener("click", (e) => {
   e.stopPropagation();
   const target = e.target;
+  if(target.closest('.drop-down-tringnometry')){
+    const t = target.closest('.drop-down-tringnometry');
+    if(t.value.includes('sec')){
+        const val = t.value.replaceAll('sec','sin');
+        string = eval(`1/(Math.${val}(${eval(string)}))`);
+    }
+    else if(t.value.includes('csc')){
+        const val = t.value.replaceAll('csc','cos');
+        string = eval(`1/(Math.${val}(${eval(string)}))`);
+    }
+    else if(t.value.includes('cot')){
+        const val = t.value.replaceAll('cot','tan');
+        string = eval(`1/(Math.${val}(${eval(string)}))`);
+    }
+    else{
+        string = eval(`Math.${t.value}(${eval(string)})`);
+    }
+    updateDisplay(string);
+  }
 });
 const updateDisplay = (str) => {
   let screen = str
@@ -124,14 +145,31 @@ functions.addEventListener("click", (e) => {
 secTrig.addEventListener("click", () => {
   if (secTrig.classList.contains("active-blue")) {
     secTrig.classList.remove("active-blue");
+    ddt.forEach((e)=>{
+        if(e.classList.contains('2nd-hyp-version')){
+            e.classList.remove('2nd-hyp-version');
+            e.classList.add('hyp-version');
+            e.innerHTML = e.dataset['hyp'];
+            e.value = `${e.dataset['original']}h`
+        }
+        else{
+            e.classList.remove('2nd-version');
+            e.innerHTML = e.dataset['original'];
+            e.value = `${e.dataset['original']}`
+        }
+    })
   } else {
     secTrig.classList.add("active-blue");
     ddt.forEach((e) => {
       if (e.classList.contains("hyp-version")) {
-        e.classList.remove("hyp-version").ad;
+        e.classList.remove("hyp-version");
+        e.classList.add("2nd-hyp-version");
+        e.innerHTML = e.dataset['2ndhyp'];
+        e.value = `a${e.dataset['original']}h`
       } else {
         e.classList.add("2nd-version");
         e.innerHTML = e.dataset["2nd"];
+        e.value = `a${e.dataset['original']}`
       }
     });
   }
@@ -139,13 +177,42 @@ secTrig.addEventListener("click", () => {
 hypTrig.addEventListener("click", () => {
   if (hypTrig.classList.contains("active-blue")) {
     hypTrig.classList.remove("active-blue");
+    ddt.forEach((e)=>{
+        if(e.classList.contains('2nd-hyp-version')){
+            e.classList.remove('2nd-hyp-version');
+            e.classList.add('2nd-version');
+            e.innerHTML = e.dataset['2nd'];
+            e.value = `a${e.dataset['original']}`
+        }
+        else{
+            e.classList.remove('hyp-version');
+            e.innerHTML = e.dataset['original'];
+            e.value = `${e.dataset['original']}`
+        }
+    })
   } else {
     hypTrig.classList.add("active-blue");
     ddt.forEach((e) => {
-      e.classList.add("hyp-version");
-      e.innerHTML = e.dataset["hyp"];
+        if(e.classList.contains('2nd-version')){
+            e.classList.remove('2nd-version')
+            e.classList.add("2nd-hyp-version");
+            e.innerHTML = e.dataset['2ndhyp'];
+            e.value = `a${e.dataset['original']}h`
+        }else{
+            e.classList.add("hyp-version");
+            e.innerHTML = e.dataset["hyp"];
+            e.value = `${e.dataset['original']}h`
+        }
     });
   }
 });
+second.addEventListener('click',()=>{
+    if(second.classList.contains('active-blue')){
+        second.classList.remove('active-blue');
+    }else{
+        second.classList.add('active-blue');
+        secondPossible.forEach((e)=>{
 
-// console.log(secTrig, "sdkfsdkfwisefisdfjn");
+        })
+    }
+})

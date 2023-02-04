@@ -137,6 +137,12 @@ sup {
 .active {
   display: grid;
 }
+.second{
+  font-size: 1.1em;
+  font-weight: 200;
+  background-color: white;
+  border: none;
+}
 .active-blue {
   background-color: rgba(0, 187, 255, 0.535);
 }
