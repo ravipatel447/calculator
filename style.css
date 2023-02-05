@@ -97,7 +97,7 @@ sup {
   font-family: "Roboto", sans-serif;
   position: relative;
   font-size: 1.01em;
-  grid-column: 3/6;
+  grid-column: 3/5;
   display: flex;
   justify-content: flex-start;
   align-items: center;
