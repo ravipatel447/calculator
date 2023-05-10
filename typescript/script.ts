@@ -1,34 +1,34 @@
-const equal = document.querySelector(".equal");
-const display = document.getElementById("display");
-const bottomPart = document.querySelector(".bottom-part");
-const topPart = document.querySelector(".top-part");
-const clear = document.querySelector(".clear");
-const trignomatry = document.querySelector("#trignomatry");
-const functions = document.querySelector("#functions");
-const functionDropDown = document.querySelector(".fun");
-const trignomatryDropDown = document.querySelector(".trig");
-const fun = document.querySelector(".fun");
-const trig = document.querySelector(".trig");
-const secTrig = document.querySelector(".secondTrig");
-const hypTrig = document.querySelector(".hyp");
-const ddt = document.querySelectorAll(".drop-down-tringnometry");
-const secondPossible = document.querySelectorAll(".second-possible");
-const second = document.querySelector(".second");
-const mc = document.querySelector(".mc");
-const mr = document.querySelector(".mr");
-const angle = document.querySelector('.angle');
+const equal = document.querySelector(".equal") as HTMLElement;
+const display = document.getElementById("display")as HTMLElement;
+const bottomPart = document.querySelector(".bottom-part") as HTMLElement;
+const topPart = document.querySelector(".top-part") as HTMLElement;
+const clear = document.querySelector(".clear")  as HTMLElement;
+const trignomatry = document.querySelector("#trignomatry") as HTMLElement;
+const functions = document.querySelector("#functions") as HTMLElement;
+const functionDropDown = document.querySelector(".fun") as HTMLElement;
+const trignomatryDropDown = document.querySelector(".trig") as HTMLElement;
+const fun = document.querySelector(".fun") as HTMLElement;
+const trig = document.querySelector(".trig") as HTMLElement;
+const secTrig = document.querySelector(".secondTrig") as HTMLButtonElement;
+const hypTrig = document.querySelector(".hyp") as HTMLElement;
+const ddt = document.querySelectorAll(".drop-down-tringnometry") as NodeListOf<HTMLButtonElement>;
+const secondPossible = document.querySelectorAll(".second-possible") as NodeListOf<HTMLElement>;
+const second = document.querySelector(".second") as HTMLElement;
+const mc = document.querySelector(".mc") as HTMLButtonElement;
+const mr = document.querySelector(".mr") as HTMLButtonElement ;
+const angle = document.querySelector('.angle') as HTMLElement;
 let string = "";
 let memory = 0;
-function ConvertDDToDMS(dd) {
+function ConvertDDToDMS(dd:number) {
     var deg = dd | 0;
     var frac = Math.abs(dd - deg);
     var min = (frac * 60) | 0;
     var sec = (frac * 3600 - min * 60) | 0;
     return deg + "°" + min + "'" + sec + '"';
 }
-function ConvertDMSToDD(degrees, minutes, seconds) {
+function ConvertDMSToDD(degrees:number, minutes:number, seconds:number):string {
     var dd = degrees + minutes / 60 + seconds / (60 * 60);
-    return dd;
+    return dd.toString();
 }
 function mEnable() {
     if (mc.disabled) {
@@ -39,9 +39,9 @@ function mEnable() {
 function Equal() {
     try {
         string = eval(string);
-        (document.querySelector('.fe').classList.contains('fActive')) ? (updateDisplay(Number(string).toExponential()))
+        ((document.querySelector('.fe')as HTMLButtonElement).classList.contains('fActive')) ? (updateDisplay(Number(string).toExponential()))
             : updateDisplay(string);
-    } catch (err) {
+    } catch (err:any) {
         updateDisplay("Unexpected Expression");
         setTimeout(() => {
             updateDisplay(string);
@@ -49,11 +49,11 @@ function Equal() {
         console.log(err.message);
     }
 }
-const factorial = function (number) {
+const factorial = function (number:number):number {
     if (number <= 1) return 1;
     return number * factorial(number - 1);
 };
-const updateDisplay = (str) => {
+const updateDisplay = (str:string):void => {
     let screen = str
         .toString()
         .replaceAll("Math.log10", "log")
@@ -68,13 +68,13 @@ clear.addEventListener("click", function () {
 });
 equal.addEventListener("click", Equal);
 topPart.addEventListener("click", (e) => {
-    const target = e.target;
+    const target = e.target as HTMLButtonElement;
     if (target.classList.contains("mc")) {
         memory = 0;
         mc.disabled = true;
         mr.disabled = true;
     } else if (target.classList.contains("mr")) {
-        string = memory;
+        string = memory.toString();
         updateDisplay(string);
     } else if (target.classList.contains("mPlus")) {
         if (string !== "") {
@@ -115,16 +115,16 @@ topPart.addEventListener("click", (e) => {
     }
 });
 fun.addEventListener("click", (e) => {
-    const target = e.target;
+    const target = e.target as HTMLButtonElement;
     e.stopPropagation();
     if (target.classList.contains("rand")) {
-        string = Math.random();
+        string = Math.random().toString();
     } else if (target.classList.contains("mode")) {
-        string !== "" ? (string = Math.abs(eval(string))) : "";
+        string !== "" ? (string = Math.abs(eval(string)).toString()) : "";
     } else if (target.classList.contains("floor")) {
-        string !== "" ? (string = Math.floor(eval(string))) : "";
+        string !== "" ? (string = Math.floor(eval(string)).toString()) : "";
     } else if (target.classList.contains("ceil")) {
-        string !== "" ? (string = Math.ceil(eval(string))) : "";
+        string !== "" ? (string = Math.ceil(eval(string)).toString()) : "";
     } else if (target.classList.contains("dms")) {
         string !== "" ? (string = ConvertDDToDMS(eval(string))) : "";
     } else if (target.classList.contains("deg")) {
@@ -141,9 +141,9 @@ fun.addEventListener("click", (e) => {
 });
 trig.addEventListener("click", (e) => {
     e.stopPropagation();
-    const target = e.target;
+    const target = e.target as HTMLButtonElement;
     if (target.closest(".drop-down-tringnometry")) {
-        const t = target.closest(".drop-down-tringnometry");
+        const t = target.closest(".drop-down-tringnometry") as HTMLButtonElement;
         if (t.value.includes("sec")) {
             const val = t.value.replaceAll("sec", "sin");
             string = eval(`1/(Math.${val}(${eval(string) * (angle.classList.contains('deg') ? (Math.PI / 180) : 1)}))`);
@@ -160,93 +160,95 @@ trig.addEventListener("click", (e) => {
     }
 });
 bottomPart.addEventListener("click", function (e) {
-    if (e.target.classList.contains("evalAble")) {
-        string += e.target.value;
+    const target = e.target as HTMLButtonElement;
+    if (target.classList.contains("evalAble")) {
+        string += target.value;
         updateDisplay(string);
     }
-    else if (e.target.classList.contains('operator')) {
+    else if (target.classList.contains('operator')) {
         if (['/', '*', '+', '-'].includes(string.toString().slice(-1))) {
-            string = string.toString().slice(0, -1) + e.target.value;
+            string = string.toString().slice(0, -1) + target.value;
         }
         else {
-            string += e.target.value;
+            string += target.value;
         }
         updateDisplay(string);
     }
-    else if (e.target.closest(".backspace")) {
+    else if (target.closest(".backspace")) {
         string = string.toString().slice(0, -1);
         updateDisplay(string);
-    } else if (e.target.classList.contains("pi")) {
-        string = Math.PI;
+    } else if (target.classList.contains("pi")) {
+        string = Math.PI.toString();
         updateDisplay(string);
-    } else if (e.target.classList.contains("EConst")) {
-        string === "" ? (string = Math.E) : (string = `(${eval(string) * Math.E})`);
+    } else if (target.classList.contains("EConst")) {
+        string === "" ? (string = Math.E.toString()) : (string = `(${eval(string) * Math.E})`);
         updateDisplay(string);
-    } else if (e.target.classList.contains("invert")) {
+    } else if (target.classList.contains("invert")) {
         string !== "" ? (string = eval(`-(${string})`)) : "";
         updateDisplay(string);
-    } else if (e.target.classList.contains("modulo")) {
+    } else if (target.classList.contains("modulo")) {
         string !== "" ? (string = "(" + eval(`(${string})`) + ")%") : "";
         updateDisplay(string);
-    } else if (e.target.closest(".square")) {
-        if (e.target.closest(".square").classList.contains("2nd-version")) {
+    } else if (target.closest(".square")) {
+        if ((target.closest(".square") as HTMLElement).classList.contains("2nd-version")) {
             string !== "" ? (string = eval(`(${string})**3`)) : "";
         } else {
             string !== "" ? (string = eval(`(${string})**2`)) : "";
         }
         updateDisplay(string);
-    } else if (e.target.closest(".squareRoot")) {
-        if (e.target.closest(".squareRoot").classList.contains("2nd-version")) {
+    } else if (target.closest(".squareRoot")) {
+        if ((target.closest(".squareRoot") as HTMLElement).classList.contains("2nd-version")) {
             string !== "" ? (string = eval(`(${string})**(1/3)`)) : "";
         } else {
             string !== "" ? (string = eval(`Math.sqrt((${string}))`)) : "";
         }
         updateDisplay(string);
-    } else if (e.target.closest(".power")) {
-        if (e.target.closest(".power").classList.contains("2nd-version")) {
+    } else if (target.closest(".power")) {
+        if ((target.closest(".power") as HTMLElement).classList.contains("2nd-version")) {
             string !== "" ? (string = "(" + eval(`(${string})`) + ")**(1/") : "";
         } else {
             string !== "" ? (string = "(" + eval(`(${string})`) + ")**") : "";
         }
         updateDisplay(string);
-    } else if (e.target.closest(".tenPower")) {
-        if (e.target.closest(".tenPower").classList.contains("2nd-version")) {
+    } else if (target.closest(".tenPower")) {
+        if ((target.closest(".tenPower") as HTMLElement).classList.contains("2nd-version")) {
             string !== "" ? (string = eval(`2**(${string})`)) : "";
         } else {
             string !== "" ? (string = eval(`10**(${string})`)) : "";
         }
         updateDisplay(string);
-    } else if (e.target.closest(".log10")) {
-        if (e.target.closest(".log10").classList.contains("2nd-version")) {
+    } else if (target.closest(".log10")) {
+        if ((target.closest(".log10") as HTMLElement).classList.contains("2nd-version")) {
             string !== "" ? (string = `Math.log10(${string})/Math.log10(`) : "";
         } else {
             string !== "" ? (string = eval(`Math.log10(${string})`)) : "";
         }
         updateDisplay(string);
-    } else if (e.target.closest(".log")) {
-        if (e.target.closest(".log").classList.contains("2nd-version")) {
+    } else if (target.closest(".log")) {
+        if ((target.closest(".log") as HTMLElement).classList.contains("2nd-version")) {
             string !== "" ? (string = eval(`(Math.E)**(${string})`)) : "";
         } else {
             string !== "" ? (string = eval(`Math.log(${string})`)) : "";
         }
         updateDisplay(string);
-    } else if (e.target.classList.contains("OneUponX")) {
+    } else if (target.classList.contains("OneUponX")) {
         string !== "" ? (string = eval(`1/(${string})`)) : "";
         updateDisplay(string);
-    } else if (e.target.classList.contains("modeX")) {
+    } else if (target.classList.contains("modeX")) {
         string !== "" ? (string = eval(`Math.abs(${string})`)) : "";
         updateDisplay(string);
-    } else if (e.target.classList.contains("EXP")) {
+    } else if (target.classList.contains("EXP")) {
         updateDisplay(Number(string).toExponential());
-    } else if (e.target.classList.contains("fact")) {
-        string !== "" ? (string = factorial(eval(`Math.abs(${string})`))) : "";
+    } else if (target.classList.contains("fact")) {
+        string !== "" ? (string = factorial(eval(`Math.abs(${string})`)).toString()) : "";
         updateDisplay(string);
     }
 });
 trignomatry.addEventListener("click", (e) => {
+    const target = e.target as HTMLButtonElement;
     if (
         trignomatryDropDown.classList.contains("active") &&
-        e.target.closest("#trignomatry")
+        target.closest("#trignomatry")
     ) {
         trignomatryDropDown.classList.remove("active");
     } else {
@@ -254,9 +256,10 @@ trignomatry.addEventListener("click", (e) => {
     }
 });
 functions.addEventListener("click", (e) => {
+    const target = e.target as HTMLButtonElement;
     if (
         functionDropDown.classList.contains("active") &&
-        e.target.closest("#functions")
+        target.closest("#functions")
     ) {
         functionDropDown.classList.remove("active");
     } else {
@@ -270,11 +273,11 @@ secTrig.addEventListener("click", () => {
             if (e.classList.contains("2nd-hyp-version")) {
                 e.classList.remove("2nd-hyp-version");
                 e.classList.add("hyp-version");
-                e.innerHTML = e.dataset["hyp"];
+                e.innerHTML = e.dataset["hyp"] as string;
                 e.value = `${e.dataset["original"]}h`;
             } else {
                 e.classList.remove("2nd-version");
-                e.innerHTML = e.dataset["original"];
+                e.innerHTML = e.dataset["original"]as string;
                 e.value = `${e.dataset["original"]}`;
             }
         });
@@ -284,11 +287,11 @@ secTrig.addEventListener("click", () => {
             if (e.classList.contains("hyp-version")) {
                 e.classList.remove("hyp-version");
                 e.classList.add("2nd-hyp-version");
-                e.innerHTML = e.dataset["2ndhyp"];
+                e.innerHTML = e.dataset["2ndhyp"]as string;
                 e.value = `a${e.dataset["original"]}h`;
             } else {
                 e.classList.add("2nd-version");
-                e.innerHTML = e.dataset["2nd"];
+                e.innerHTML = e.dataset["2nd"]as string;
                 e.value = `a${e.dataset["original"]}`;
             }
         });
@@ -301,11 +304,11 @@ hypTrig.addEventListener("click", () => {
             if (e.classList.contains("2nd-hyp-version")) {
                 e.classList.remove("2nd-hyp-version");
                 e.classList.add("2nd-version");
-                e.innerHTML = e.dataset["2nd"];
+                e.innerHTML = e.dataset["2nd"]as string;
                 e.value = `a${e.dataset["original"]}`;
             } else {
                 e.classList.remove("hyp-version");
-                e.innerHTML = e.dataset["original"];
+                e.innerHTML = e.dataset["original"]as string;
                 e.value = `${e.dataset["original"]}`;
             }
         });
@@ -315,11 +318,11 @@ hypTrig.addEventListener("click", () => {
             if (e.classList.contains("2nd-version")) {
                 e.classList.remove("2nd-version");
                 e.classList.add("2nd-hyp-version");
-                e.innerHTML = e.dataset["2ndhyp"];
+                e.innerHTML = e.dataset["2ndhyp"]as string;
                 e.value = `a${e.dataset["original"]}h`;
             } else {
                 e.classList.add("hyp-version");
-                e.innerHTML = e.dataset["hyp"];
+                e.innerHTML = e.dataset["hyp"]as string;
                 e.value = `${e.dataset["original"]}h`;
             }
         });
@@ -330,18 +333,18 @@ second.addEventListener("click", () => {
         second.classList.remove("active-blue");
         secondPossible.forEach((e) => {
             e.classList.remove("2nd-version");
-            e.innerHTML = e.dataset["original"];
+            e.innerHTML = e.dataset["original"]as string;
         });
     } else {
         second.classList.add("active-blue");
         secondPossible.forEach((e) => {
             e.classList.add("2nd-version");
-            e.innerHTML = e.dataset["2ndversion"];
+            e.innerHTML = e.dataset["2ndversion"]as string;
         });
     }
 });
 addEventListener('keydown',(e)=>{
-    if(!isNaN(e.key)||e.key==="."||e.key==="("||e.key===")"){
+    if(!isNaN(parseInt(e.key))||e.key==="."||e.key==="("||e.key===")"){
         string += e.key;
         updateDisplay(string);
     }
